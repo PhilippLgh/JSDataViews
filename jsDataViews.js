@@ -32,11 +32,7 @@
     var DataWrapper = function( obj ){
     	this.target = obj;
     	this.selector = "";
-    	this.checkSelector = function(entity){
-    		console.log(this.selector, entity)
-    		//this.target[i]["age"] >= 30
-    		return true;
-    	};
+ 
     };
     var evalSelectorProperty = function(obj, selector){
 	    var 
