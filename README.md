@@ -8,7 +8,7 @@ Info
 ----
 
 With JSDataViews users can create abstract interfaces to a given root-dataset.
-The abstract interfaces are called DataViews and inspired by Views in query languages like SQL.
+These abstract interfaces are called DataViews and inspired by Views in query languages like SQL.
 
 
 	var employees = dv([	
@@ -26,6 +26,23 @@ The abstract interfaces are called DataViews and inspired by Views in query lang
 	//>>max mustermann (31) is dancing all night long
 	//>>lena (30) is dancing all night long
 	//>>john doe (20) is working all night long
+
+Technology
+----------
+
+JSDataViews are build upon the Proxy API introduced in ECMAScript 6 and thus are some kind of meta programs.
+
+Two technologies form the foundation of JSDataViews:
+
+###Virtual Instances
+
+Virtual Instances are objects which are self-computed at runtime. They are lazy initialized, i.e. they only represent data when they are accessed.
+
+###Selector Properties
+
+Selector Properties go beyond normal object properties in JavaScript. They are very similar to CSS DOM selectors known from frameworks like jQuery.
+
+	employees['age>30']
 
 Warning
 -------
