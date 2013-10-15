@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="lib.js"></script>
+	<script>
+		var employees = dv([	
+			{name:"john doe", age:20, status: "is working"},
+		    {name:"lena", age:29, status: "is working"},
+		    {name:"max mustermann", age:31, status: "is working"}
+		]).view()
+
+		var employeesOver30 = dv(employees).view("age>=30");
+
+		employees["name:lena"]["age"] = 30;
+
+		employeesOver30.status = "is dancing";
+	
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
