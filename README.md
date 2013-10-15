@@ -1,7 +1,7 @@
 JSDataViews
 ===========
 
-JSDataViews is a library, for querying and manipulating complex data structures.
+JSDataViews is a library for querying and manipulating complex data structures.
 
 
 Info
@@ -26,3 +26,9 @@ The abstract interfaces are called DataViews and inspired by Views in query lang
 	//>>max mustermann (31) is dancing all night long
 	//>>lena (30) is dancing all night long
 	//>>john doe (20) is working all night long
+
+Warning
+-------
+
+The code is very experimental and in an early development stage.
+Without polyfills, the code will only run in newer FF versions.
