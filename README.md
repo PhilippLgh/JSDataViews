@@ -37,6 +37,7 @@ Two concepts form the foundation of JSDataViews:
 ###Virtual Instances
 
 Virtual Instances are objects which are self-computed at runtime. They are lazy initialized, i.e. they only represent data when they are accessed.
+More information can be found on [my blog](http://www.bitcrunch.de/virtual-instances-in-javascript-with-proxy-api-jsdataviews/)
 
 ###Selector Properties
 
