@@ -32,7 +32,7 @@ Technology
 
 JSDataViews are build upon the Proxy API introduced in ECMAScript 6 and thus are some kind of meta programs.
 
-Two technologies form the foundation of JSDataViews:
+Two concepts form the foundation of JSDataViews:
 
 ###Virtual Instances
 
@@ -47,7 +47,7 @@ Selector Properties go beyond normal object properties in JavaScript. They are v
 Warning
 -------
 
-The code is very experimental and in an early development stage.
+The code is very experimental and in an early development stage. It is not intended to be used in production code.
 Without polyfills, the code will only run in newer FF versions.
 
 
