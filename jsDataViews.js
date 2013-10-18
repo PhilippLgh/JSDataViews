@@ -23,60 +23,19 @@
 	}
 
 	var
-	version = "0.1";
+		version = "0.1";
 
     var DataView = function( obj ) {
     	return new DataWrapper( obj );
     };
 
     var DataWrapper = function( obj ){
+    	//TODO use proxy.set on target to track modification
     	this.target = obj;
     	this.selector = "";
  
     };
-    var evalSelectorProperty = function(obj, selector){
-	    var 
-	    	pattern = /(:|>=|<=)/,
-	    	pv = selector.split(pattern, 3); //returns [property,operator,value]
-	    if(pv.length<=1){//only property
-	    	console.log("properties simple", pv)
-	    	//obj can be of type proxy
-	    	return obj[selector]
-	    }else if(pv.length === 2){// missing property/value part
-	    	console.log("missing value", pv)
-	    }else{ //pv.length === 3
-	    	var 
-	    		rest = selector.slice(pv.join("").length),
-	    		test = pv[1],
-	    		elements = [];
-	    	//FIXME only valid if obj is array
-		   	for (var i = obj.length - 1; i >= 0; i--) {
-		   		var propValue = obj[i][pv[0]]
-		   		if(typeof propValue !== "undefined"){
-		   			var testValue = pv[2];
-		   			var testPassed = false;
-		   			//TODO use enums for performance?
-		   			switch(test){
-		   				case ":"  : testPassed = (propValue === testValue);
-		   						 	break;
-		   				case ">=" : testPassed = (propValue >= testValue);
-		   							break;
-		   				case "<=" : testPassed = (propValue <= testValue);
-		   							break;
-		   				default: console.error("unsupported operator:", test)
-		   			}
-		   			if(testPassed){
-		   				elements.push(obj[i]);
-		   			}
-		   		}
-		   	}
-	    }
-	    return elements;
-	}
-	var isSelector = function(prop){
-		var pattern = /(:|>=|<=)/;
-		return (prop.search(pattern) !== -1)
-	}
+    var se = new SelectorEngine();
     var vLogic = {
 	    get: function(declaration, prop){
 	    	var dataRepresentation = null;
@@ -90,10 +49,9 @@
 	        		return dataRepresentation.length;
 	    		}else if(!isNaN(parseInt(prop))){ //type is number
 	    			return dataRepresentation[parseInt(prop)];
-	    		}else if(isSelector(prop)){
-	    			var matchingElements = evalSelectorProperty(dataRepresentation, prop)
+	    		}else if(se.isSelector(prop)){
+	    			var matchingElements = se.evalSelector(dataRepresentation, prop)
 	    			return new Proxy(matchingElements, vLogic);
-	    			//TODO check rest !== 0 -> return new Proxy(ret, vLogic)[rest];
 	    		}else{
 	    			//FIXME handle arrays, objects, ..
 	    			return dataRepresentation[prop];
@@ -121,7 +79,7 @@
     			if(typeof declaration === "string"){
     				var selector = declaration;
     				return new Proxy((function(){
-    					return evalSelectorProperty(this.target, selector)
+    					return se.evalSelector(this.target, selector)
     				}.bind(this)), vLogic);
     			}else if(typeof declaration === "function"){
 					return new Proxy(declaration, vLogic);
